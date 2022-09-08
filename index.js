@@ -14,12 +14,22 @@ const pool = createPool({
   connectionLimit: 10
 })
 //console.log(pool);
-
+// pool.getConnection((err, conn)=>{
+//   if(err)
+//   {
+//     console.log(err);
+//     return;
+//   }
+//   conn.query("select * from usstates WHERE state = 'Arizona'", (err, rows, fields)=>{
+//     console.log(rows);
+//     res.json(rows);
+//   })
+// })
 
 
 app.get('/:cityname', (req, res)=>{
   const string = req.params.cityname;
-  const query = "select * from usstates WHERE state = "+string;
+  const query = "select * from usstates WHERE state = "+"'"+string+"'";
   // const list = sql.query(connectionString, query, (err, rows)=>{
   //   console.log(rows);
   //   res.send(rows);
@@ -30,7 +40,7 @@ app.get('/:cityname', (req, res)=>{
       console.log(err);
       return;
     }
-    conn.query(query, (err, rows, fields)=>{
+    conn.query(query, (err, rows)=>{
       console.log(rows);
       res.json(rows);
     })
